@@ -1,0 +1,13 @@
+[sframe]
+version=0
+num_segments=0
+num_columns=3
+nrows=129095
+[column_names]
+0000=prop_id
+0001=linear_terms
+0002=factors
+[column_files]
+0000=m_da39dee9db14dc3a.sidx:0
+0001=m_da39dee9db14dc3a.sidx:1
+0002=m_da39dee9db14dc3a.sidx:2
