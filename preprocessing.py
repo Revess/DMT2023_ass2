@@ -32,7 +32,7 @@ def process(path):
     df['season_booking'] = df.apply(season_booking, axis=1)
     df.drop(['date_booking'], axis=1, inplace=True)
     #If the price is outside the lower and upper quantile, replace it with the mean of the price of that hotel
-    df['price_usd'] = np.where((df['price_usd'] < df['price_usd'].quantile(0.001)) | (df['price_usd'] > df['price_usd'].quantile(0.999)), df.groupby('prop_country_id')['price_usd'].transform('mean'), df['price_usd'])
+    df['price_usd'] = np.where((df['price_usd'] < df['price_usd'].quantile(0.001)) | (df['price_usd'] > df['price_usd'].quantile(0.999)), df.groupby('prop_id')['price_usd'].transform('mean'), df['price_usd'])
     # df['prop_review_score'] = df['prop_review_score'].fillna(method='bfill')
     df['comp_rate'] = [1 if all(x == 1 for x in row) else 0 if all(x == 0 for x in row) else -1 for row in df[['comp1_rate', 'comp2_rate', 'comp3_rate', 'comp4_rate', 'comp5_rate', 'comp6_rate', 'comp7_rate', 'comp8_rate']].values]
     columns = ['comp1_rate', 'comp2_rate', 'comp3_rate', 'comp4_rate', 'comp5_rate', 'comp6_rate', 'comp7_rate', 'comp8_rate']
