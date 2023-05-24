@@ -30,6 +30,8 @@ def process(path):
     #     df = df[(df['price_usd'] >= df['price_usd'].quantile(0.001)) & (df['price_usd'] <= df['price_usd'].quantile(0.999))]
     df['date_booking'] = df['date_time'] + pd.to_timedelta(df['srch_booking_window'], unit='d')
     df['season_booking'] = df.apply(season_booking, axis=1)
+    #Add the price per night
+    df['price_per_night'] = df['price_usd'] / df['srch_length_of_stay']
     df.drop(['date_booking'], axis=1, inplace=True)
     #If the price is outside the lower and upper quantile, replace it with the mean of the price of that hotel
     df['price_usd'] = np.where((df['price_usd'] < df['price_usd'].quantile(0.001)) | (df['price_usd'] > df['price_usd'].quantile(0.999)), df.groupby('prop_id')['price_usd'].transform('mean'), df['price_usd'])
